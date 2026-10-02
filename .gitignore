@@ -1,0 +1,36 @@
+# Dependencies, caches, and generated output
+node_modules/
+.pnpm-store/
+dist/
+tmp/
+.cache/
+.vite/
+coverage/
+test-results/
+playwright-report/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+.npmrc.local
+.codex/
+.aws/
+
+# Logs, editor files, and packaged snapshots
+*.log
+*.zip
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+*.swp
+*.swo
+
+# Keep reference decks local; include build artwork and project documentation
+resources/*
+!resources/Minimalist Line-Art Houseplants on a Shelf.png
+!resources/docs/
+resources/docs/*.jpg

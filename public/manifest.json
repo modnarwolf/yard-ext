@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Yard — your local garden",
+  "version": "0.1.0",
+  "description": "A calm local workspace for friends, shared notes, and direct file transfers.",
+  "chrome_url_overrides": { "newtab": "index.html" },
+  "action": { "default_title": "Open Yard" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["storage", "unlimitedStorage"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}
