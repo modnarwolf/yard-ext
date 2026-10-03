@@ -1,4 +1,5 @@
 import { $, esc, toast, task, button, modal, confirm, dot } from './dom.js';
+import { icon } from './icons.js';
 export function initFriends(state, notes) {
   const renderNote = notes.renderNote;
   let nudgeAt = 0;
@@ -65,7 +66,7 @@ export function initFriends(state, notes) {
           return `<div class="friend-row"><span class="person-avatar">${esc((f.nickname || f.name || '?')[0].toUpperCase())}</span><div class="friend-name"><strong>${esc(f.nickname || f.name)}</strong>${dot(status)}</div><div class="friend-actions">${status === 'Connected' ? `<button class="text-button" data-friend="invite" data-route="${esc(f.route)}">Invite</button>` : !f.blocked ? `<button class="text-button" data-friend="connect" data-route="${esc(f.route)}">Connect</button>` : ''}<button class="icon-button" data-friend="manage" data-route="${esc(f.route)}" aria-label="Manage ${esc(f.name)}">···</button></div></div>`;
         })
         .join('') ||
-      '<div class="empty compact"><span class="empty-icon">☷</span><h3>A little closer, together</h3><p>Invite someone you know.<br>Save them as a friend to reconnect next time.</p></div>';
+      `<div class="empty compact"><span class="empty-icon">${icon('users')}</span><h3>No friends yet</h3><p>Invite a friend or join with their code.</p></div>`;
     const room = state.network.room;
     $('#room-info').innerHTML = room
       ? `<div class="room-heading"><span><i class="small-dot"></i> ${room.members.length}/4 in your hangout</span><button id="leave-room" class="text-button">Leave</button></div><div class="participants">${room.members.map((p) => `<span>${esc(p.name)}${p.route === room.host ? ' · host' : ''}</span>`).join('')}</div>`

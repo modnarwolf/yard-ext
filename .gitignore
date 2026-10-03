@@ -33,4 +33,5 @@ Desktop.ini
 resources/*
 !resources/Minimalist Line-Art Houseplants on a Shelf.png
 !resources/docs/
+!resources/lucide-LICENSE.txt
 resources/docs/*.jpg

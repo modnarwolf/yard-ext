@@ -2,6 +2,7 @@ import { $, esc, toast, task, button, modal, confirm, dot } from './dom.js';
 import { get, put } from '../storage.js';
 import { permission } from '../filesystem.js';
 import { bytes } from '../protocol.js';
+import { icon } from './icons.js';
 export async function initFilesNotes(state) {
   const vault = state.vault;
   let entries = [],
@@ -20,7 +21,7 @@ export async function initFilesNotes(state) {
     if (!vault.handle || !(await permission(vault.handle, 'read'))) {
       entries = [];
       $('#file-list').innerHTML =
-        `<div class="empty"><span class="empty-icon">▤</span><h3>${vault.handle ? 'Your folder is waiting' : 'Put down some roots'}</h3><p>${vault.handle ? 'Reconnect to browse your files.' : 'Connect a folder on your computer.<br>Everything stays yours.'}</p><button id="connect-empty" class="outline">${vault.handle ? 'Reconnect folder' : 'Choose a folder'}</button></div>`;
+        `<div class="empty"><span class="empty-icon">${icon('folder')}</span><h3>${vault.handle ? 'Reconnect your folder' : 'No folder connected'}</h3><p>${vault.handle ? 'Reconnect to browse your files.' : 'Choose a folder on your computer.'}</p><button id="connect-empty" class="outline">${vault.handle ? 'Reconnect folder' : 'Choose a folder'}</button></div>`;
       $('#connect-empty').onclick = task(async () => {
         if (vault.handle) await vault.reconnect();
         else await vault.choose();
@@ -40,7 +41,7 @@ export async function initFilesNotes(state) {
         .filter(({ entry }) => entry.name.toLowerCase().includes(query))
         .map(
           ({ entry, index }) =>
-            `<button class="file-row" data-file="${index}"><span class="file-icon ${entry.kind === 'directory' ? 'folder' : ''}">${entry.kind === 'directory' ? '▱' : /\.(png|jpg|jpeg|webp|gif)$/i.test(entry.name) ? '▧' : /\.(mp4|webm|mov)$/i.test(entry.name) ? '▷' : '▤'}</span><span>${esc(entry.name)}<small>${entry.kind === 'directory' ? 'Folder' : 'Local file'}</small></span><span class="file-arrow">↗</span></button>`,
+            `<button class="file-row" data-file="${index}"><span class="file-icon ${entry.kind === 'directory' ? 'folder' : ''}">${icon(entry.kind === 'directory' ? 'folder' : /\.(png|jpg|jpeg|webp|gif)$/i.test(entry.name) ? 'image' : /\.(mp4|webm|mov)$/i.test(entry.name) ? 'play' : 'sticky-note')}</span><span>${esc(entry.name)}<small>${entry.kind === 'directory' ? 'Folder' : 'Local file'}</small></span><span class="file-arrow">↗</span></button>`,
         )
         .join('') ||
       '<div class="empty compact"><p>No files here yet.</p></div>';
@@ -82,10 +83,7 @@ export async function initFilesNotes(state) {
       mode = 'file';
       $('#note-editor').value = snapshot.text;
       renderNote();
-      $('[data-panel="notes"]').scrollIntoView({
-        block: 'center',
-        behavior: 'smooth',
-      });
+      $('[data-jump="notes"]').click();
       return;
     }
     if (file.type.startsWith('image/') || file.type.startsWith('video/')) {

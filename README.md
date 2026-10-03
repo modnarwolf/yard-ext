@@ -1,6 +1,8 @@
 # Yard
 
-A local-first Chromium new-tab workspace for your files and your friends. Cream, slate, green, plant illustrations, editable bento panels, saved friends, four-person hangouts, chat, collaborative text notes, and direct disk-backed file transfers.
+A local-first Chromium new-tab desktop for your files and your friends. Draggable windows, a Lucide app dock, an analog clock, focus timer, saved friends, four-person hangouts, chat, collaborative text notes, and direct disk-backed file transfers. The desktop UI is ported from `yard_iso`, with no top navbar or landing-page hero.
+
+Drag a window's title bar to reorder it, or focus its title bar and use arrow keys. Minimize windows with their minus button; reopen them from the dock. Layout positions and visibility persist locally. **Layout → Tidy up** restores the default arrangement. Settings includes Windows 98, Windows XP, MSN, and Skype palettes, custom background colors/styles, and cursor choices. The storage widget reports browser quota, not the capacity of your connected drive.
 
 See [the module map](resources/docs/architecture.md) for code organization and [verification results](resources/docs/verification.md) for completed checks and remaining release tests.
 
@@ -29,7 +31,7 @@ The development preview is at http://127.0.0.1:5173/. `localhost:5173` has separ
 4. Open the friend's menu and select **Add friend**. They accept. Each browser saves the other identity and address.
 5. Reopening Yard attempts authenticated reconnection without another code. Use **Invite** to start another hangout.
 
-Green **Connected** means the authenticated friend connection is working. Amber **Connecting** means a handshake is in progress. Gray **Offline** means the connection closed or the server confirmed the peer unavailable. Gray **Unknown** means availability could not be checked. Signaling status is shown separately at the top. Blocking and removing friends are available in their menu.
+Green **Connected** means the authenticated friend connection is working. Amber **Connecting** means a handshake is in progress. Gray **Offline** means the connection closed or the server confirmed the peer unavailable. Gray **Unknown** means availability could not be checked. Signaling status is shown separately in the desktop footer. Blocking and removing friends are available in their menu.
 
 Friends are reachable while their Yard is open. Clearing extension storage loses the identity; identity backup and multi-device accounts are not part of this MVP. If an identity changes, remove the old friend and pair explicitly using a fresh invite. A session-owning tab holds a Web Lock; other Yard tabs remain local workspaces and can open the active tab. When the active tab closes, another open Yard tab can take over.
 
@@ -84,7 +86,6 @@ node scripts/large-transfer-check.js
 
 It exercises the production transfer engine with a local test transport and a real 10 GB disk fixture, forces a restart after committed blocks, checks output size/checksum, measures peak process RSS, and cleans up only its own temporary directory. Allow approximately 30 GB of temporary space. This does not substitute for a 10 GB browser/WebRTC test.
 
-Manual release checks: install in both Chrome and Edge; test folder permission renewal and tab ownership; connect two independent profiles across different networks; test four participants and direct guest transfers; send a real 10 GB video; close/reopen both browsers mid-transfer; test destination disk-full/permission errors; verify completed bytes and media previews. Also check keyboard-only use, reduced motion, dark palette, and narrow layouts.
+Manual release checks: install in both Chrome and Edge; test folder permission renewal and tab ownership; connect two independent profiles across different networks; test four participants and direct guest transfers; send a real 10 GB video; close/reopen both browsers mid-transfer; test destination disk-full/permission errors; verify completed bytes and media previews. Also check keyboard-only use, reduced motion, all four desktop palettes, and narrow layouts.
 
 No accounts, public discovery, voice/video, offline delivery, automatic folder replication, or popup edition are included.
-
